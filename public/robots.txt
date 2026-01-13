@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://techbirdsconsulting.com/sitemap.xml
+
+# Disallow admin and private pages
+Disallow: /admin
+Disallow: /admin-login
+Disallow: /admin/*
+Disallow: /payslips
+Disallow: /payslips/*
+
+# Allow all public pages
+Allow: /
+Allow: /services
+Allow: /industries
+Allow: /projects
+Allow: /about
+Allow: /contact
+Allow: /careers
+
+# Crawl-delay (optional - adjust based on server capacity)
+Crawl-delay: 1
