@@ -6,25 +6,22 @@ import path from "path";
 export default defineConfig({
   server: {
     host: "localhost",
-    port: 8081,
+    port: 8080,
     strictPort: false,
+    // Let Vite handle HMR automatically
   },
   plugins: [
     react(),
   ],
+  optimizeDeps: {
+    include: ['@react-three/fiber', '@react-three/drei', 'three'],
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  optimizeDeps: {
-    include: ['stats.js'],
-    exclude: ['@react-three/drei', 'three', '@react-three/fiber'],
-  },
   build: {
-    commonjsOptions: {
-      include: [/stats.js/, /node_modules/],
-    },
     rollupOptions: {
       output: {
         manualChunks: {
@@ -32,8 +29,7 @@ export default defineConfig({
           'ui-vendor': ['framer-motion', 'lucide-react'],
           'form-vendor': ['react-hook-form', '@hookform/resolvers', 'zod'],
           'supabase': ['@supabase/supabase-js'],
-          'pdf-vendor': ['jspdf', 'html2canvas'],
-          'three-vendor': ['three', '@react-three/fiber', '@react-three/drei']
+          'pdf-vendor': ['jspdf', 'html2canvas']
         }
       }
     },

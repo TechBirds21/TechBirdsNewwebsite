@@ -3,14 +3,16 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import FloatingContact from "./components/FloatingContact";
 import BackToTop from "./components/BackToTop";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import ErrorBoundary from "./components/ErrorBoundary";
-import SmoothScroll from "./components/SmoothScroll";
-import PremiumCursor from "./components/PremiumCursor";
+import EnhancedSmoothScroll from "./components/EnhancedSmoothScroll";
+import EnhancedCursor from "./components/EnhancedCursor";
+import Global3DScene from "./components/Global3DScene";
+import TechBirdScene from "./components/TechBirdScene";
+import OverlayNavigation from "./components/OverlayNavigation";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import Industries from "./pages/Industries";
@@ -23,13 +25,13 @@ import AdminLogin from "./pages/AdminLogin";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./hooks/useAuth";
+import { ServiceProvider } from "./contexts/ServiceContext";
 
 const queryClient = new QueryClient();
 
 const PageWrapper = ({ children }: { children: React.ReactNode }) => (
   <>
-    <Navigation />
-    <main className="flex-1 w-full overflow-x-hidden">
+    <main className="flex-1 w-full overflow-x-hidden relative z-10">
       {children}
     </main>
     <Footer />
@@ -40,13 +42,25 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <AuthProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ErrorBoundary>
-            <SmoothScroll>
-              <div className="min-h-screen flex flex-col w-full overflow-x-hidden bg-white">
-                <PremiumCursor />
+        <ServiceProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <ErrorBoundary>
+              <EnhancedSmoothScroll>
+                <div className="min-h-screen flex flex-col w-full overflow-x-hidden bg-slate-950 relative">
+                  {/* Lempens-Style Bird Flock Background */}
+                  <TechBirdScene />
+                  
+                  {/* Global 3D Scene - Persists across all routes */}
+                  <Global3DScene />
+                
+                {/* Enhanced Cursor */}
+                <EnhancedCursor />
+                
+                {/* Overlay Navigation */}
+                <OverlayNavigation />
+                
                 <GoogleAnalytics />
                 <FloatingContact />
                 <BackToTop />
@@ -70,9 +84,10 @@ const App = () => (
                   <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
                 </Routes>
               </div>
-            </SmoothScroll>
-          </ErrorBoundary>
-        </BrowserRouter>
+              </EnhancedSmoothScroll>
+            </ErrorBoundary>
+          </BrowserRouter>
+        </ServiceProvider>
       </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>

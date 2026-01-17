@@ -36,12 +36,12 @@ const FloatingContact = () => {
 
   return (
     <>
-      {/* Desktop WhatsApp Button - Bottom Left - FIXED z-index below navbar */}
+      {/* Desktop WhatsApp Button - Bottom Left - FIXED z-index */}
       <motion.button
         onClick={handleWhatsAppClick}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="hidden md:flex fixed bottom-8 left-8 z-[50] items-center group"
+        className="hidden md:flex fixed bottom-8 left-8 z-[9998] items-center group"
         initial={{ opacity: 0, scale: 0, x: -50 }}
         animate={{ opacity: 1, scale: 1, x: 0 }}
         transition={{ 
